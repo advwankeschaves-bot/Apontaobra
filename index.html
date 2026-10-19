@@ -126,19 +126,25 @@ section.blk{padding-block:76px}
 .tab-tela[aria-pressed=true]{background:var(--grafite-2);border-color:var(--laranja);color:#fff;font-weight:600}
 .tab-tela[aria-pressed=true] span{color:var(--laranja-claro)}
 .contador{font-family:var(--f-mono);font-size:13px;color:var(--tinta-inv-2);padding-left:4px}
-/* calculadora */
-.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:30px;align-items:start}
-.calc-in{background:var(--papel);border:1px solid var(--linha);border-radius:20px;padding:26px}
-.calc-in input[type=number]{width:100%;min-height:52px;border:1.5px solid #BDB6A8;border-radius:10px;padding:0 14px;font:inherit;font-size:17px;background:#fff;color:var(--tinta)}
-.calc-out{background:var(--grafite);color:#fff;border-radius:20px;padding:28px}
-.calc-out .big{font-family:var(--f-display);font-weight:900;font-size:72px;line-height:1;color:var(--laranja-claro);font-variant-numeric:tabular-nums}
-.calc-out .lbl{color:var(--tinta-inv);margin-top:4px}
-.calc-out .linhas{margin:20px 0;border-top:1px solid var(--linha-esc);display:grid}
-.calc-out .linhas div{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--linha-esc);font-size:15.5px;color:var(--tinta-inv)}
-.calc-out .linhas b{color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
-.paga{color:var(--tinta-inv);font-size:15.5px;margin:0 0 18px}
-.paga b{color:#fff}
-
+/* teste */
+.teste{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:24px;margin-top:30px;align-items:start}
+.qs{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:q}
+.q{background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:16px 18px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.qt b{display:block;font-size:16.5px;line-height:1.35}
+.qt span{display:block;color:var(--tinta-2);font-size:14.5px;margin-top:4px}
+.sn{display:flex;gap:6px}
+.sn button{min-width:62px;min-height:44px;border-radius:10px;border:1.5px solid #BDB6A8;background:#fff;font:inherit;font-weight:600;font-size:15px;cursor:pointer;color:var(--tinta)}
+.sn button[data-v="1"][aria-pressed=true]{background:var(--ok);border-color:var(--ok);color:#fff}
+.sn button[data-v="0"][aria-pressed=true]{background:var(--erro);border-color:var(--erro);color:#fff}
+.res{background:var(--grafite);color:#fff;border-radius:20px;padding:26px;position:sticky;top:84px}
+.res-n{font-family:var(--f-display);font-weight:900;font-size:56px;line-height:1;font-variant-numeric:tabular-nums}
+.res-n span{color:var(--laranja-claro)}
+.res-l{color:var(--tinta-inv);font-size:15px}
+.barra-r{height:8px;border-radius:99px;background:var(--grafite-2);margin:16px 0;overflow:hidden}
+.barra-r span{display:block;height:100%;background:var(--laranja);transition:width .3s}
+.res h3{font-size:22px;font-weight:900;margin:0 0 6px}
+.res p{color:var(--tinta-inv);font-size:15.5px;margin:0 0 18px}
+.res .res-nota{font-size:14px;color:var(--tinta-inv-2);margin:14px 0 0}
 /* oferta + reserva */
 .reserva{background:var(--areia)}
 .ficha{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:24px;margin-top:32px;align-items:start}
@@ -239,7 +245,8 @@ footer b{color:#fff}
   .lei .wrap{grid-template-columns:minmax(0,1fr)}
   .ficha{grid-template-columns:minmax(0,1fr)}
   .ficha .oferta{order:2}
-  .cond,.calc,.galeria{grid-template-columns:minmax(0,1fr)}
+  .cond,.teste,.galeria{grid-template-columns:minmax(0,1fr)}
+  .res{position:static}
   .quem{grid-template-columns:repeat(2,minmax(0,1fr))}
   .lista-telas{grid-template-columns:repeat(2,minmax(0,1fr))}
   .dor{grid-template-columns:minmax(0,1fr)}
@@ -257,7 +264,7 @@ footer b{color:#fff}
   .visor{grid-template-columns:44px minmax(0,1fr) 44px;gap:6px}
   .seta{width:44px;height:44px}
   .tab-tela{padding:10px 12px;font-size:14.5px}
-  .calc-out .big{font-size:58px}
+  .q{grid-template-columns:minmax(0,1fr)}
 }
 </style><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style></head><body>
 
@@ -389,30 +396,22 @@ footer b{color:#fff}
   </section>
 
 
-  <section class="blk conta-sec">
+  <section class="blk teste-sec" id="teste">
     <div class="wrap">
-      <div class="kicker">Faça a conta</div>
-      <h2>Quanto custa a sua noite no computador?</h2>
-      <p class="sub">Preencha com a sua rotina. A conta usa só os seus números.</p>
-      <div class="calc">
-        <div class="calc-in">
-          <div class="campo"><label for="c-vis">Vistorias por mês</label><input type="number" id="c-vis" min="1" max="200" value="8" inputmode="numeric"></div>
-          <div class="campo"><label for="c-h">Horas de escritório depois de cada vistoria</label><input type="number" id="c-h" min="0.5" max="12" step="0.5" value="3" inputmode="decimal"></div>
-          <div class="campo"><label for="c-v">Quanto vale a sua hora (R$)</label><input type="number" id="c-v" min="10" max="2000" step="10" value="120" inputmode="numeric"></div>
-          <div class="campo"><label for="c-r">Quanto desse tempo o APONTA economiza</label>
-            <select id="c-r"><option value="0.3">30%, uma estimativa conservadora</option><option value="0.5" selected>50%, metade do trabalho</option><option value="0.7">70%, quase tudo sai no canteiro</option></select></div>
-        </div>
-        <div class="calc-out" aria-live="polite">
-          <div class="big"><span id="o-h">12</span> h</div>
-          <div class="lbl">por mês de volta para você</div>
-          <div class="linhas">
-            <div><span>Tempo hoje no computador</span><b id="o-tot">24 h/mês</b></div>
-            <div><span>Valor do tempo economizado</span><b id="o-val">R$ 1.440/mês</b></div>
-            <div><span>Custo do Plano Fundador</span><b>R$ 16,42/mês</b></div>
-          </div>
-          <p class="paga" id="o-paga">O plano se paga com 9 minutos de trabalho economizado por mês.</p>
-          <a class="btn btn-pri btn-full" href="#reserva">Quero minha vaga de fundador</a>
-        </div>
+      <div class="kicker">Teste de 1 minuto</div>
+      <h2>O seu registro aguenta a defesa da empresa?</h2>
+      <p class="sub">Quando a contratada contesta uma multa, o advogado dela não discute a obra. Ele procura falhas no registro do fiscal. Responda com sinceridade e veja como está o seu.</p>
+      <div class="teste">
+        <ol class="qs"><li class="q" data-i="0"><div class="qt"><b>Toda notificação que você enviou tem prova de que a empresa recebeu?</b><span>Sem prova de recebimento, a contratada alega que nunca foi notificada.</span></div><div class="sn" role="group" aria-label="Resposta"><button type="button" data-v="1" aria-pressed="false">Sim</button><button type="button" data-v="0" aria-pressed="false">Não</button></div></li><li class="q" data-i="1"><div class="qt"><b>Cada foto tem data, hora e local que não podem ser contestados?</b><span>Foto solta no celular é a primeira prova que a defesa derruba.</span></div><div class="sn" role="group" aria-label="Resposta"><button type="button" data-v="1" aria-pressed="false">Sim</button><button type="button" data-v="0" aria-pressed="false">Não</button></div></li><li class="q" data-i="2"><div class="qt"><b>O prazo de correção foi fixado por escrito, com a cláusula do contrato?</b><span>Prazo combinado de boca não sustenta multa.</span></div><div class="sn" role="group" aria-label="Resposta"><button type="button" data-v="1" aria-pressed="false">Sim</button><button type="button" data-v="0" aria-pressed="false">Não</button></div></li><li class="q" data-i="3"><div class="qt"><b>Quando o prazo venceu, você reiterou a cobrança por escrito?</b><span>Falha cobrada uma vez e esquecida vira tolerância.</span></div><div class="sn" role="group" aria-label="Resposta"><button type="button" data-v="1" aria-pressed="false">Sim</button><button type="button" data-v="0" aria-pressed="false">Não</button></div></li><li class="q" data-i="4"><div class="qt"><b>O gestor do contrato foi avisado a tempo do que passou da sua competência?</b><span>É o que o art. 117, §2º, exige do fiscal.</span></div><div class="sn" role="group" aria-label="Resposta"><button type="button" data-v="1" aria-pressed="false">Sim</button><button type="button" data-v="0" aria-pressed="false">Não</button></div></li><li class="q" data-i="5"><div class="qt"><b>Se o tribunal de contas pedir hoje, você junta o histórico completo em 10 minutos?</b><span>Registro espalhado em WhatsApp, e-mail e caderno não vira dossiê.</span></div><div class="sn" role="group" aria-label="Resposta"><button type="button" data-v="1" aria-pressed="false">Sim</button><button type="button" data-v="0" aria-pressed="false">Não</button></div></li></ol>
+        <aside class="res" aria-live="polite">
+          <div class="res-n"><span id="r-n">0</span> de 6</div>
+          <div class="res-l">respostas "sim"</div>
+          <div class="barra-r"><span id="r-bar" style="width:0%"></span></div>
+          <h3 id="r-t">Responda as 6 perguntas</h3>
+          <p id="r-p">Cada "não" é um ponto que a defesa da empresa pode usar contra a sua notificação, e contra você.</p>
+          <a class="btn btn-pri btn-full" href="#reserva">Quero o registro blindado</a>
+          <p class="res-nota">O APONTA cuida dos 6 pontos em cada ocorrência: prova de ciência, foto com data e GPS, prazo e cláusula, reiteração, aviso ao gestor e dossiê.</p>
+        </aside>
       </div>
     </div>
   </section>
@@ -491,16 +490,6 @@ footer b{color:#fff}
                 </div>
                 <div class="err" id="e-obras" aria-live="polite"></div>
               </fieldset>
-              <div class="linha2">
-                <div class="campo">
-                  <label for="crea">CREA ou CAU <span class="opc">(opcional)</span></label>
-                  <input type="text" id="crea" name="crea">
-                </div>
-                <div class="campo">
-                  <label for="cidade">Cidade/UF <span class="opc">(opcional)</span></label>
-                  <input type="text" id="cidade" name="cidade" autocomplete="address-level2" placeholder="Belém/PA">
-                </div>
-              </div>
               <label class="aceite" for="aceite"><input type="checkbox" id="aceite"><span>Concordo com as condições da pré-venda e com o uso dos meus dados para o cadastro e o contato sobre o APONTA (Lei 13.709/2018).</span></label>
               <div class="err" id="e-aceite" aria-live="polite" style="margin:-10px 0 14px"></div>
               <button type="submit" class="btn btn-pri btn-full">Reservar minha vaga</button>
@@ -634,22 +623,19 @@ function validar(){
 function dados(){
   const g = id => $(id).value.trim();
   return { nome: g('nome'), whats: fmtWhats(g('whats')), email: g('email'), perfil: radio('perfil'),
-           obras: radio('obras'), crea: g('crea'), cidade: g('cidade') };
+           obras: radio('obras') };
 }
 
 function etapa2(d){
   $('pnome').textContent = d.nome.split(/\s+/)[0];
   const linhas = [['Nome', d.nome], ['WhatsApp', d.whats], ['E-mail', d.email], ['Atuação', d.perfil], ['Obras', d.obras]];
-  if (d.crea) linhas.push(['CREA/CAU', d.crea]);
-  if (d.cidade) linhas.push(['Cidade', d.cidade]);
   const box = $('resumo'); box.textContent = '';
   for (const [k, v] of linhas) {
     const row = document.createElement('div'); const a = document.createElement('span'); const b = document.createElement('span');
     a.textContent = k; b.textContent = v; row.append(a, b); box.append(row);
   }
   const msg = ['Olá! Quero reservar minha vaga no Plano Fundador do APONTA.', '',
-    'Nome: ' + d.nome, 'WhatsApp: ' + d.whats, 'E-mail: ' + d.email, 'Atuação: ' + d.perfil, 'Obras que fiscalizo: ' + d.obras,
-    d.crea ? 'CREA/CAU: ' + d.crea : '', d.cidade ? 'Cidade: ' + d.cidade : ''].filter((l, i) => l !== '' || i === 1).join('\n');
+    'Nome: ' + d.nome, 'WhatsApp: ' + d.whats, 'E-mail: ' + d.email, 'Atuação: ' + d.perfil, 'Obras que fiscalizo: ' + d.obras].join('\n');
   $('btn-zap').href = 'https://wa.me/' + CFG.whatsapp + '?text=' + encodeURIComponent(msg);
   $('etapa1').hidden = true; $('etapa2').hidden = false; barra.hidden = true;
   $('cartao').scrollIntoView({block: 'start'});
@@ -672,7 +658,7 @@ $('editar').addEventListener('click', () => {
 try {
   const salvo = JSON.parse(localStorage.getItem('aponta-reserva') || 'null');
   if (salvo && salvo.nome) {
-    for (const k of ['nome','whats','email','crea','cidade']) if (salvo[k]) $(k).value = salvo[k];
+    for (const k of ['nome','whats','email']) if (salvo[k]) $(k).value = salvo[k];
     for (const n of ['perfil','obras']) { const r = document.querySelector('input[name="' + n + '"][value="' + CSS.escape(salvo[n] || '') + '"]'); if (r) r.checked = true; }
     $('aceite').checked = true;
   }
@@ -698,21 +684,27 @@ if ('IntersectionObserver' in window) {
   palco.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
   palco.addEventListener('touchend',e=>{ if(x0===null)return; const dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>40) ir(atual+(dx<0?1:-1)); x0=null; });
 })();
-/* calculadora */
+/* teste */
 (function(){
-  const brl=v=>'R$ '+Math.round(v).toLocaleString('pt-BR');
-  const num=id=>Math.max(0,parseFloat(String(document.getElementById(id).value).replace(',','.'))||0);
-  function calc(){
-    const tot=num('c-vis')*num('c-h'); const eco=tot*num('c-r'); const val=eco*num('c-v');
-    const custo=197/12;
-    document.getElementById('o-h').textContent=(Math.round(eco*10)/10).toLocaleString('pt-BR');
-    document.getElementById('o-tot').textContent=(Math.round(tot*10)/10).toLocaleString('pt-BR')+' h/mês';
-    document.getElementById('o-val').textContent=brl(val)+'/mês';
-    const v=num('c-v'); const p=document.getElementById('o-paga');
-    if(v>0){ const min=Math.max(1,Math.ceil(custo/v*60)); p.innerHTML='O plano se paga com <b>'+min+' minutos</b> de trabalho economizado por mês.'; } else p.textContent='';
+  const resp={};
+  const txt=[[0,1,'Seu registro está muito exposto','Hoje, quase qualquer multa que você aplicar pode cair na defesa. O APONTA monta a prova enquanto você ainda está na obra.'],
+    [2,3,'Seu registro tem buracos','Há pontos que a defesa da empresa vai explorar. O APONTA fecha cada um deles em todas as ocorrências.'],
+    [4,5,'Bom, mas dá trabalho manter','Você já faz quase tudo certo, mas à custa de horas no computador. O APONTA faz o mesmo em minutos.'],
+    [6,6,'Registro completo','Você é rigoroso. O APONTA vai devolver as horas que esse rigor custa hoje.']];
+  function upd(){
+    const n=Object.values(resp).filter(v=>v===1).length, tot=Object.keys(resp).length;
+    document.getElementById('r-n').textContent=n;
+    document.getElementById('r-bar').style.width=(n/6*100)+'%';
+    if(tot<6){document.getElementById('r-t').textContent='Faltam '+(6-tot)+' de 6 respostas';return;}
+    const f=txt.find(x=>n>=x[0]&&n<=x[1]);
+    document.getElementById('r-t').textContent=f[2]; document.getElementById('r-p').textContent=f[3];
   }
-  ['c-vis','c-h','c-v','c-r'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
-  calc();
+  document.querySelectorAll('.q').forEach(li=>{
+    li.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+      li.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+      resp[li.dataset.i]=+b.dataset.v; upd();
+    }));
+  });
 })();
 </script>
 </body></html>
